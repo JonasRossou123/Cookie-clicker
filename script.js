@@ -1,21 +1,24 @@
-const cookie = document.getElementById("clickbutton")
-const label = document.getElementById("counter")
-const multiplier = document.getElementById("multiplier")
-const playerScore = 0
+const cookie = document.getElementById("clickscore")
+const score = document.getElementById("showscore")
+const clickmultiplier = document.getElementById("clickmultiplier")
+const showmultiplier = document.getElementById("showmultiplier")
 let counter = 0
+let multiplier = 1
+
+score.innerHTML = counter
+showmultiplier.innerHTML = multiplier
+
 
 cookie.addEventListener("click", function (){
 
-    counter += 1
-    console.log(counter)
-    label.innerHTML = counter
+    counter += multiplier
+    score.innerHTML = counter
 
 })
 
-multiplier.addEventListener("click", function(){
+clickmultiplier.addEventListener("click", function(){
 
-    counter *= 2
-    console.log(counter)
-    label.innerHTML = counter
+    multiplier += 1
+    showmultiplier.innerHTML = multiplier
 
 })
