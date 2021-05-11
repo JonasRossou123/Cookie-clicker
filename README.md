@@ -1,4 +1,6 @@
 # Cookie-clicker
+Online game: https://jonasrossou123.github.io/Cookie-clicker/
+
 
 For this exercise we had to make our own version of the well known cookie game Cookie-clicker.
 Overall goals: Javascript, git conflict skills.
