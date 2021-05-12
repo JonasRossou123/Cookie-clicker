@@ -17,62 +17,99 @@ let multiplier = 1
 let multiplierbonus = 0
 let priceauto = 50
 
-
-
 //this could be done in html as well, initial text
 score.innerHTML = counter
 
-score.addEventListener('change',function () {
+const checkmulti = () => {
+    if (counter < (multiplier * 10)){
+        clickmultiplier.classList.add('noclick');
+    }
+    else {
+        clickmultiplier.classList.remove('noclick');
+    }
+}
 
-})
+checkmulti()
+
+const checkauto = () => {
+    if (counter >= priceauto){
+        autoclicker.classList.remove('noclick');
+    }
+    else
+        autoclicker.classList.add("noclick");
+}
+
+checkauto()
 
 
-//first goal, increase goal on click, the multiplierbonus was added later on
-cookie.addEventListener("click", function () {
 
+const checkbonus = () => {
+     if (counter < 100){
+         bonus.classList.add('noclick');
+     }
+     else {
+         bonus.classList.remove('noclick');
+     }
+}
+
+checkbonus()
+
+function myTimer() {
     counter += multiplier + multiplierbonus
     score.innerHTML = counter
+    checkmulti();
+    checkauto();
+    checkbonus();
+}
 
+
+//first goal, increase counter on click, the multiplierbonus was added later on
+cookie.addEventListener("click", function () {
+    counter += multiplier + multiplierbonus
+    score.innerHTML = counter
+    checkmulti();
+    checkauto();
+    checkbonus();
 })
+
 
 //second goal, add the multiplier when clicked on cookie, added a simple if else to check if player has enough credit
 clickmultiplier.addEventListener("click", function () {
-    if (counter < (multiplier * 10)) {
-        alert("you can't buy progress")
-    } else {
+
+
+
         counter -= (multiplier * 10)
         multiplier += 1
         priceauto = 50 * multiplier
+
+
         if (multiplierbonus > 0) {
             multiplierbonus = multiplier
         }
+    checkmulti();
+    checkauto();
+    checkbonus();
+
         score.innerHTML = counter
         costauto.innerHTML = "-" + priceauto + " COOKIES";
         showmultiplier.innerHTML = multiplier;
         costmultiplier.innerHTML = "-" + (multiplier * 10) + " COOKIES";
-    }
 })
 
 //added an autoclicker, this function will click automatically until infinity (at a cost of 50 cookies)
 //also a check if there's enough credit
 autoclicker.addEventListener("click", function () {
     priceauto = 50 * multiplier
-    if (counter < priceauto) {
-        //autoclicker.classList.add('noclick');
-        alert("You can't buy autoclicker. You need at least" + priceauto + "cookies.")
-    } else {
-        costauto.innerHTML = "-" + priceauto + " COOKIES"
-        function myTimer() {
-            counter += multiplier + multiplierbonus
-            score.innerHTML = counter
-        }
+    costauto.innerHTML = "-" + priceauto + " COOKIES"
 
-        setInterval(myTimer, 2000);
+        setInterval(myTimer, 1000);
         autoclickerinfo.innerHTML = "ENABLED"
         counter -= priceauto;
         score.innerHTML = counter
+    checkmulti();
+    checkauto();
+    checkbonus();
 
-    }
 })
 
 // Added a bonus button, only if the player has enough cookies (100).
@@ -83,15 +120,18 @@ autoclicker.addEventListener("click", function () {
 // So I added an extra variable to avoid conflicts (also in the other addEventlisteners)-> multiplierbonus
 
 bonus.addEventListener("click", function () {
-    if (counter < 100) {
-        alert("You can't buy bonusboost. You need at least 100 cookies.")
-    } else {
+
         let timer = setInterval(Boost, 1000);
         let seconds = 30
 
         bonusinfo.innerHTML = "ENABLED";
         timerx.innerHTML = "30 seconds left, multiplier is " + (multiplier * 2);
         counter -= 100
+
+    checkmulti();
+    checkauto();
+    checkbonus();
+
         score.innerHTML = counter;
         multiplierbonus = multiplier;
 
@@ -104,5 +144,5 @@ bonus.addEventListener("click", function () {
                 timerx.innerHTML = "";
             }
         }
-    }
+
 })
