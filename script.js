@@ -9,16 +9,22 @@ const autoclickerinfo = document.getElementById("status2")
 const bonus = document.getElementById("image4")
 const bonusinfo = document.getElementById("status3")
 const timerx = document.getElementById("timer")
-
+const costauto = document.getElementById("cost 2")
 
 //giving our variables the initial values
 let counter = 0
 let multiplier = 1
 let multiplierbonus = 0
+let priceauto = 50
+
 
 
 //this could be done in html as well, initial text
 score.innerHTML = counter
+
+score.addEventListener('change',function () {
+
+})
 
 
 //first goal, increase goal on click, the multiplierbonus was added later on
@@ -36,11 +42,12 @@ clickmultiplier.addEventListener("click", function () {
     } else {
         counter -= (multiplier * 10)
         multiplier += 1
+        priceauto = 50 * multiplier
         if (multiplierbonus > 0) {
             multiplierbonus = multiplier
         }
         score.innerHTML = counter
-
+        costauto.innerHTML = "-" + priceauto + " COOKIES";
         showmultiplier.innerHTML = multiplier;
         costmultiplier.innerHTML = "-" + (multiplier * 10) + " COOKIES";
     }
@@ -49,10 +56,12 @@ clickmultiplier.addEventListener("click", function () {
 //added an autoclicker, this function will click automatically until infinity (at a cost of 50 cookies)
 //also a check if there's enough credit
 autoclicker.addEventListener("click", function () {
-
-    if (counter < 50) {
-        alert("You can't buy autoclicker. You need at least 50 cookies.")
+    priceauto = 50 * multiplier
+    if (counter < priceauto) {
+        //autoclicker.classList.add('noclick');
+        alert("You can't buy autoclicker. You need at least" + priceauto + "cookies.")
     } else {
+        costauto.innerHTML = "-" + priceauto + " COOKIES"
         function myTimer() {
             counter += multiplier + multiplierbonus
             score.innerHTML = counter
@@ -60,7 +69,7 @@ autoclicker.addEventListener("click", function () {
 
         setInterval(myTimer, 2000);
         autoclickerinfo.innerHTML = "ENABLED"
-        counter -= 50;
+        counter -= priceauto;
         score.innerHTML = counter
 
     }
@@ -83,7 +92,7 @@ bonus.addEventListener("click", function () {
         bonusinfo.innerHTML = "ENABLED";
         timerx.innerHTML = "30 seconds left, multiplier is " + (multiplier * 2);
         counter -= 100
-        score.innerHTML = counter
+        score.innerHTML = counter;
         multiplierbonus = multiplier;
 
         function Boost() {
