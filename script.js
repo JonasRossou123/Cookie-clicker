@@ -28,7 +28,6 @@ const checkmulti = () => {
         clickmultiplier.classList.remove('noclick');
     }
 }
-
 checkmulti()
 
 const checkauto = () => {
@@ -38,10 +37,7 @@ const checkauto = () => {
     else
         autoclicker.classList.add("noclick");
 }
-
 checkauto()
-
-
 
 const checkbonus = () => {
      if (counter < 100){
@@ -51,7 +47,6 @@ const checkbonus = () => {
          bonus.classList.remove('noclick');
      }
 }
-
 checkbonus()
 
 function myTimer() {
@@ -61,7 +56,6 @@ function myTimer() {
     checkauto();
     checkbonus();
 }
-
 
 //first goal, increase counter on click, the multiplierbonus was added later on
 cookie.addEventListener("click", function () {
